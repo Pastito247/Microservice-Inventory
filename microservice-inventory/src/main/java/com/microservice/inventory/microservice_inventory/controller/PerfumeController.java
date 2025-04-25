@@ -11,10 +11,8 @@ import com.microservice.inventory.microservice_inventory.model.Perfume;
 import com.microservice.inventory.microservice_inventory.service.PerfumeService;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("api/v1/inventario")
-
 public class PerfumeController {
 
     @Autowired
@@ -25,31 +23,39 @@ public class PerfumeController {
         return perfumeService.getPerfumes();
     }
 
-    @GetMapping
-    public Perfume getPerfumeById(@RequestParam int id) {
+    // Obtener un perfume por su ID
+    @GetMapping("{id}")
+    public Perfume getPerfumeById(@PathVariable int id) {
         return perfumeService.getPerfumeById(id);
     }
 
-    @GetMapping
-    public Perfume getPerfumeByName(@RequestParam String nombre) {
+    // Obtener un perfume por su nombre
+    @GetMapping("nombre/{nombre}")
+    public Perfume getPerfumeByName(@PathVariable String nombre) {
         return perfumeService.getPerfumeByName(nombre);
     }
 
+    // Agregar un nuevo perfume
     @PostMapping
-    public Perfume addPerfume(@RequestParam Perfume perfume) {
+    public Perfume addPerfume(@RequestBody Perfume perfume) {
         return perfumeService.addPerfume(perfume);
     }
 
-    public Perfume updatePerfume(@RequestParam Perfume perfume) {
+    // Actualizar un perfume
+    @PutMapping
+    public Perfume updatePerfume(@RequestBody Perfume perfume) {
         return perfumeService.updatePerfume(perfume);
     }
 
-    public String deletePerfume(@RequestParam int id) {
+    // Eliminar un perfume por ID
+    @DeleteMapping("{id}")
+    public String deletePerfume(@PathVariable int id) {
         return perfumeService.deletePerfume(id);
     }
-    public String deletePerfumeByName(@RequestParam String nombre) {
+
+    // Eliminar un perfume por nombre
+    @DeleteMapping("nombre/{nombre}")
+    public String deletePerfumeByName(@PathVariable String nombre) {
         return perfumeService.deletePerfumeByName(nombre);
     }
-
-    
 }
